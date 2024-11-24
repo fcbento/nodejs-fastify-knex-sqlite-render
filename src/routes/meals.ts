@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply, FastifyInstance } from "fastify"
 import { createIdObject, createMealObject } from "../utils/meals.utils"
-import { createMeal, deleteMeal, editMeal, mealExists } from "../service/meals-service"
+import { createMeal, deleteMeal, editMeal, getAllMeals, mealExists } from "../service/meals-service"
 import { userExists } from "../service/users-service"
 import { checkSessionIdExists } from "../middleware/check-session-id-exists"
 
@@ -47,6 +47,33 @@ export async function mealsRoutes(app: FastifyInstance) {
     }
 
     return reply.status(204).send()
+  })
+
+  app.get('/user/:id', { preHandler: [checkSessionIdExists] }, async (request: FastifyRequest, reply: FastifyReply) => {
+
+    const { id } = createIdObject().parse(request.params)
+
+    try {
+      await userExists(id)
+      const meals = await getAllMeals(id)
+      meals.forEach((meal) => { meal.on_diet = +meal.on_diet === 1 })
+      return reply.status(200).send({meals})
+    } catch (err) {
+      reply.status(400).send(err)
+    }
+  })
+
+  app.get('/:id', { preHandler: [checkSessionIdExists] }, async (request: FastifyRequest, reply: FastifyReply) => {
+
+    const { id } = createIdObject().parse(request.params)
+
+    try {
+      const meal = await mealExists(id)
+      meal.on_diet = +meal.on_diet === 1
+      return reply.status(200).send(meal)
+    } catch (err) {
+      reply.status(400).send(err)
+    }
   })
 }
 

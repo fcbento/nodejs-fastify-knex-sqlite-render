@@ -14,9 +14,9 @@
     - On a diet// boolean
 
 - [x] Should be able to edit a meal
-- [ ] Should be able to delete a meal
-- [ ] Should be able to list all meals from a user
-- [ ] Should be able to see a single meal
+- [x] Should be able to delete a meal
+- [x] Should be able to list all meals from a user
+- [x] Should be able to see a single meal
 - [ ] Should be able to  retrieve users metrics
     - [ ] Total quantity registered meals
     - [ ] Total quantity meals on diet

@@ -27,6 +27,11 @@ export const deleteMeal = async (mealId: string): Promise<void> => {
   await knex('meals').delete().where('id', mealId)
 }
 
+export const getAllMeals = async (userId: string): Promise<Tables['meals'][]> => {
+  const meals = await knex('meals').where('user_id', userId).select()
+  return meals
+}
+
 export const mealExists = async (mealId: string): Promise<Tables['meals']> => {
   const meal = await knex('meals').where('id', mealId).select().first()
   if(!meal) throw new Error('Meal dot not exist or id is missing')
