@@ -8,3 +8,9 @@ export const createMealObject = (): ZodObject<ZodRawShape> => {
     userId: z.string()
   })
 }
+
+export const createIdObject = (): ZodObject<ZodRawShape> => {
+  return z.object({
+    id: z.string()
+  })
+}

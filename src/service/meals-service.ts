@@ -1,5 +1,6 @@
 import { kknex as knex } from '../database'
 import { CreateMealRequest } from '../interfaces/create-meal.interface'
+import { Tables } from 'knex/types/tables'
 
 export const createMeal = async (request: CreateMealRequest): Promise<void> => {
   const {name, description, onDiet, userId} = request
@@ -10,4 +11,20 @@ export const createMeal = async (request: CreateMealRequest): Promise<void> => {
     on_diet: onDiet,
     user_id: userId
   })
+}
+
+export const editMeal = async (request: CreateMealRequest, mealId: string): Promise<void> => {
+  const {name, description, onDiet, userId} = request
+  await knex('meals').update({
+    name,
+    description,
+    on_diet: onDiet,
+    user_id: userId
+  }).where('id', mealId)
+}
+
+export const mealExists = async (mealId: string): Promise<Tables['meals']> => {
+  const meal = await knex('meals').where('id', mealId).select().first()
+  if(!meal) throw new Error('Meal dot not exist or id is missing')
+  return meal
 }

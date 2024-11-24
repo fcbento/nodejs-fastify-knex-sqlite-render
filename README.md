@@ -13,7 +13,7 @@
     - Date
     - On a diet// boolean
 
-- [ ] Should be able to edit a meal
+- [x] Should be able to edit a meal
 - [ ] Should be able to delete a meal
 - [ ] Should be able to list all meals from a user
 - [ ] Should be able to see a single meal
