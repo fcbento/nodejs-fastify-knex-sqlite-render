@@ -6,11 +6,11 @@ import { createMeal } from "../service/meals-service"
 export async function mealsRoutes(app: FastifyInstance) {
   app.post('/', async (request: FastifyRequest, reply: FastifyReply) => {
     const sessionId = getSessionIdFromRequestCookie(request)
-    const { name, description, userId } = createMealObject().parse(request.body)
+    const { name, description, onDiet, userId } = createMealObject().parse(request.body)
 
     sessionIdVerifier(sessionId, reply)
-    createMeal(name, description, userId)
-    
+    createMeal({ name, description, onDiet, userId })
+
     return reply.status(201).send()
   })
 }
