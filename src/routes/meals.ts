@@ -1,15 +1,13 @@
 import { FastifyRequest, FastifyReply, FastifyInstance } from "fastify"
-import { getSessionIdFromRequestCookie } from "../utils/users.utils"
 import { createMealObject } from "../utils/meals.utils"
 import { createMeal } from "../service/meals-service"
 import { userExists } from "../service/users-service"
+import { checkSessionIdExists } from "../middleware/check-session-id-exists"
 
 export async function mealsRoutes(app: FastifyInstance) {
-  app.post('/', async (request: FastifyRequest, reply: FastifyReply) => {
-    const sessionId = getSessionIdFromRequestCookie(request)
-    const { name, description, onDiet, userId } = createMealObject().parse(request.body)
+  app.post('/', { preHandler: [checkSessionIdExists] }, async (request: FastifyRequest, reply: FastifyReply) => {
 
-    if (!sessionId) reply.status(405).send({ message: 'Not authorized' })
+    const { name, description, onDiet, userId } = createMealObject().parse(request.body)
 
     try {
       await userExists(userId)
