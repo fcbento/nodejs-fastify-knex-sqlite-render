@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply, FastifyInstance } from "fastify"
 import { createIdObject, createMealObject } from "../utils/meals.utils"
-import { createMeal, deleteMeal, editMeal, getAllMeals, mealExists } from "../service/meals-service"
+import { createMeal, deleteMeal, editMeal, getAllMeals, mealExists, getMetrics } from "../service/meals-service"
 import { userExists } from "../service/users-service"
 import { checkSessionIdExists } from "../middleware/check-session-id-exists"
 
@@ -71,6 +71,19 @@ export async function mealsRoutes(app: FastifyInstance) {
       const meal = await mealExists(id)
       meal.on_diet = +meal.on_diet === 1
       return reply.status(200).send(meal)
+    } catch (err) {
+      reply.status(400).send(err)
+    }
+  })
+
+  app.get('/metrics/:id', { preHandler: [checkSessionIdExists] }, async (request: FastifyRequest, reply: FastifyReply) => {
+
+    const { id } = createIdObject().parse(request.params)
+
+    try {
+      await userExists(id)
+      const metrics = await getMetrics(id)
+      return reply.status(200).send(metrics)
     } catch (err) {
       reply.status(400).send(err)
     }

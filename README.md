@@ -18,9 +18,9 @@
 - [x] Should be able to list all meals from a user
 - [x] Should be able to see a single meal
 - [ ] Should be able to  retrieve users metrics
-    - [ ] Total quantity registered meals
-    - [ ] Total quantity meals on diet
-    - [ ] Total quantity meals out of diet
-    - [ ] Best sequence of meals on the diet
+    - [x] Total quantity registered meals
+    - [x] Total quantity meals on diet
+    - [x] Total quantity meals out of diet
+    - [x] Best sequence of meals on the diet
     
-- [ ] Should make it possible to see to edit or delete meals that the user themselves created
+- [x] Should make it possible to see to edit or delete meals that the user themselves created
