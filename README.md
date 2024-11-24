@@ -4,7 +4,7 @@
 - [x] Should list all users
 - [x] Should be able to idenfity user among requesitions
 
-- [ ] Should be able to register a meal with the following info
+- [x] Should be able to register a meal with the following info
     
 *Meals should be related to a user*
     
