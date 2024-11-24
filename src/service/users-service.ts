@@ -17,3 +17,9 @@ export const getUsers = async(request: FastifyRequest) => {
   return users
 }
 
+export const userExists = async(userId: string) => {
+  const user = await knex('users').where('id', userId).select().first()
+  if(!user) throw new Error('User dot not exist or id is missing')
+  return user
+}
+
