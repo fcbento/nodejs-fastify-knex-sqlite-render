@@ -16,6 +16,6 @@ jobs:
           cache: 'npm'
 
       - run: npm ci
-        env: test
+        env: [test]
 
       - run: npm run test
