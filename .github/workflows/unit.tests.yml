@@ -6,7 +6,9 @@ jobs:
   run-unit-tests:
     name: Run Unit Tests
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        env: [test]
     steps:
       - uses: actions/checkout@v3
 
@@ -16,6 +18,5 @@ jobs:
           cache: 'npm'
 
       - run: npm ci
-        env: [test]
 
       - run: npm run test
